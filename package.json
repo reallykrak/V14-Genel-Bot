@@ -1,0 +1,57 @@
+{
+
+  "name": "V14-Genel-Bot",
+
+  "version": "1.0.0",
+
+  "description": "ARESDEV",
+
+  "main": "index.js",
+
+  "scripts": {
+
+    "start": "node index.js",
+
+    "dev": "nodemon index.js"
+
+  },
+
+  "keywords": [
+
+    "discord",
+
+    "bot",
+
+    "discord.js"
+
+  ],
+
+  "author": "discord.gg/aresdev",
+
+  "license": "MIT",
+
+  "dependencies": {
+
+    "discord.js": "^14.x.x",
+
+    "fs": "^0.0.1-security",
+
+    "path": "^0.12.7"
+
+    "mongoose": "^7.x.x",
+
+    "quick.db": "^9.x.x",
+
+    "canvas": "^2.x.x"
+
+    "discord-giveaways": "^6.x.x"
+
+  },
+
+  "devDependencies": {
+
+    "nodemon": "^3.x.x"
+
+  }
+
+}

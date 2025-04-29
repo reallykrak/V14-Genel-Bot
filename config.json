@@ -1,1 +1,20 @@
-
+{
+  "token": "",
+  "prefix": "!",
+  "clientId": "",
+  "guildId": "",
+  "databaseUrl": "mongodb://localhost:27017/your_bot_db",
+  "owners": ["SAHIP_ID_1", "SAHIP_ID_2"],
+  "modLogChannelId": "",
+  "ticketCategoryParentId": "",
+  "ticketWelcomeMessage": "Destek ekibimiz sizinle ilgilenecek. Lütfen sorununuzu açıklayın.",
+  "giveawayEmoji": "🎉",
+  "levelUpMessage": "Tebrikler {user}! {level} seviyeye ulaştın!",
+  "welcomeChannelId": "HOSGELDIN_KANAL_ID_BURAYA",
+  "welcomeMessage": "Sunucumuza hoş geldin, {user}! Kuralları okumayı unutma.",
+  "welcomeBackgroundImageUrl": null,
+  "defaultCurrencyName": "Coin",
+  "dailyCoinAmount": 100,
+  "messageCoinRange": [1, 5],
+  "messageXpRange": [10, 20]
+}

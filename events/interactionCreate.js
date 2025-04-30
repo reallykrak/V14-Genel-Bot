@@ -1,10 +1,10 @@
 const { Events, Collection } = require('discord.js');
-const config = require('../config.json'); // Gerekirse prefix veya diğer ayarlar için
+const config = require('../config.json');
 
 module.exports = {
     name: Events.InteractionCreate,
     async execute(interaction, client) {
-        // Etkileşimin bir slash komutu olup olmadığını kontrol et
+        // Slash komutlar
         if (interaction.isChatInputCommand()) {
             const command = client.slashCommands.get(interaction.commandName);
 
@@ -18,53 +18,60 @@ module.exports = {
                 return;
             }
 
-            // Cooldown (Bekleme Süresi) Kontrolü (İsteğe Bağlı)
+            // Cooldown kontrolü
             const { cooldowns } = client;
             if (!cooldowns.has(command.data.name)) {
                 cooldowns.set(command.data.name, new Collection());
             }
             const now = Date.now();
             const timestamps = cooldowns.get(command.data.name);
-            const defaultCooldownDuration = 3; // Saniye cinsinden varsayılan bekleme süresi
-            const cooldownAmount = (command.cooldown ?? defaultCooldownDuration) * 1000; // Milisaniyeye çevir
+            const defaultCooldownDuration = 3;
+            const cooldownAmount = (command.cooldown ?? defaultCooldownDuration) * 1000;
 
             if (timestamps.has(interaction.user.id)) {
                 const expirationTime = timestamps.get(interaction.user.id) + cooldownAmount;
                 if (now < expirationTime) {
                     const expiredTimestamp = Math.round(expirationTime / 1000);
-                    return interaction.reply({ content: `Bu komutu tekrar kullanabilmek için <t:${expiredTimestamp}:R> beklemelisin.`, ephemeral: true });
+                    return interaction.reply({
+                        content: `Bu komutu tekrar kullanabilmek için <t:${expiredTimestamp}:R> beklemelisin.`,
+                        ephemeral: true
+                    });
                 }
             }
             timestamps.set(interaction.user.id, now);
             setTimeout(() => timestamps.delete(interaction.user.id), cooldownAmount);
 
-
-            // Komutu çalıştırmayı dene
+            // Komutu çalıştır
             try {
-                await command.execute(interaction, client); // Client'ı da komuta iletmek faydalı olabilir
+                await command.execute(interaction, client);
             } catch (error) {
                 console.error(`[HATA] ${interaction.commandName} komutu çalıştırılırken hata:`, error);
                 if (interaction.replied || interaction.deferred) {
-					await interaction.followUp({ content: 'Komut yürütülürken bir hata oluştu!', ephemeral: true });
-				} else {
-					await interaction.reply({ content: 'Komut yürütülürken bir hata oluştu!', ephemeral: true });
-				}
+                    await interaction.followUp({ content: 'Komut yürütülürken bir hata oluştu!', ephemeral: true });
+                } else {
+                    await interaction.reply({ content: 'Komut yürütülürken bir hata oluştu!', ephemeral: true });
+                }
             }
         }
-        // Diğer etkileşim türleri (buton, menü vb.) için kontroller
+
+        // Buton işlemleri
         else if (interaction.isButton()) {
-            // Button ID'sine göre işlem yap
-            // Örneğin: if (interaction.customId === 'ticket-olustur') { ... }
-             console.log(`[BUTTON] ${interaction.customId} tıklandı by ${interaction.user.tag}`);
-             // İlgili sistemi veya helper'ı çağırabilirsin
-             // Örneğin: client.systems.ticket?.handleButton(interaction);
+            console.log(`[BUTTON] ${interaction.customId} tıklandı by ${interaction.user.tag}`);
+
+            if (interaction.customId === 'help-button') {
+                require('../helpers/embedManager').sendHelpMenu(interaction, client);
+            }
         }
-        else if (interaction.isStringSelectMenu()) { // Veya AnySelectMenu
-             // Seçim menüsü işlemleri
-             console.log(`[MENU] ${interaction.customId} seçildi by ${interaction.user.tag}`);
-             // Örneğin: client.systems.moderation?.handleMenu(interaction);
+
+        // Menü işlemleri
+        else if (interaction.isStringSelectMenu()) {
+            console.log(`[MENU] ${interaction.customId} seçildi by ${interaction.user.tag}`);
+
+            if (interaction.customId === 'help-menu') {
+                require('../helpers/embedManager').handleHelpMenu(interaction, client);
+            }
         }
-        // ... Diğer etkileşim türleri (ModalSubmit vb.)
+
+        // Diğer etkileşim türleri (isteğe bağlı modal vb.)
     },
 };
-                                             

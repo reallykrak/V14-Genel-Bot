@@ -1,7 +1,6 @@
 {
   "token": "DISCORD_BOT_TOKEN_BURAYA",
   "clientId": "BOT_CLIENT_ID_BURAYA",
-  "guildId": "KOMUTLARI_BIR_SUNUCUYA_TEST_ETMEK_ICIN_SUNUCU_ID_BURAYA",
-  "databaseUrl": "mongodb://localhost:27017/your_bot_db",
-  "owners": ["SAHIP_ID_1", "SAHIP_ID_2"]
+  "guildId": "1365013656395583510",
+  "owners": ["999406459106373722", "693122666579755098"]
 }

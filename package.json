@@ -20,7 +20,7 @@
     "path": "^0.12.7",
     "mongoose": "^7.0.3",
     "quick.db": "^9.0.0",
-    "canvas": "2.9.3",
+    "canvas": "2.1.0",
     "discord-giveaways": "^6.0.0"
   },
   "devDependencies": {

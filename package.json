@@ -15,15 +15,15 @@
   "author": "discord.gg/aresdev",
   "license": "MIT",
   "dependencies": {
-    "discord.js": "^14.x.x",
+    "discord.js": "^14.8.0",
     "fs": "^0.0.1-security",
     "path": "^0.12.7",
-    "mongoose": "^7.x.x",
-    "quick.db": "^9.x.x",
-    "canvas": "^2.x.x",
-    "discord-giveaways": "^6.x.x"
+    "mongoose": "^7.0.3",
+    "quick.db": "^9.0.0",
+    "canvas": "^2.9.0",
+    "discord-giveaways": "^6.0.0"
   },
   "devDependencies": {
-    "nodemon": "^3.x.x"
+    "nodemon": "^3.0.0"
   }
 }
